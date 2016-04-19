@@ -63,5 +63,19 @@ namespace Smart_House_MVC.Controllers
         {
             return View();
         }
+
+        public ActionResult ElectroOtchet()
+        {
+            double suma = 0;
+            List<double> pitanieList = new List<double>();
+            dv = (SortedDictionary<int, Device>)Session["dv"];
+            foreach(int key in dv.Keys)
+            {
+                suma += dv[key].GetElectroPitanie();
+                pitanieList.Add(dv[key].GetElectroPitanie());
+            }
+            ViewBag.SumaPitania = suma;
+            return View(pitanieList);
+        }
     }
 }
