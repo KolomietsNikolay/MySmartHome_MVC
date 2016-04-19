@@ -9,8 +9,9 @@ namespace Smart_House_MVC.Models.Interfaces
     interface iChanels
     {
          int Chanel { get; set; }
-         void findChanel(string str);
-         void chanelNext();
-         void chanelBack();
+         void FindChanel(string str, string urlTeleprog);
+         void ChanelNext();
+         void ChanelBack();
+         string ChanelName();
     }
 }

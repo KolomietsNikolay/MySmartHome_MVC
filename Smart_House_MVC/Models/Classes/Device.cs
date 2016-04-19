@@ -11,6 +11,8 @@ namespace Smart_House_MVC.Models.Classes
     {
         private string name;
         protected string urlImage;
+        protected DateTime start;
+        protected double ispol;
         public Device(string name)
         {
             this.Name = name;
@@ -22,5 +24,10 @@ namespace Smart_House_MVC.Models.Classes
         }
 
         public string Name { set; get; }
+
+        public double GetElectroPitanie()
+        {
+            return ispol;
+        }
     }
 }

@@ -19,9 +19,11 @@ namespace Smart_House_MVC.Controllers
             {
                 dv = new SortedDictionary<int, Device>();
                 dv.Add(1, new Door("Входная дверь.", "~/Content/closeDoor.jpg", "~/Content/close.png"));
+                dv.Add(2, new Light("Свет коридор.", "~/Content/offLight.png", "~/Content/off.png",50));
+                dv.Add(3, new TV("Тел. спальня.", "~/Content/tv.jpg", "~/Content/powerClick.jpg", 50));
 
                 Session["dv"] = dv;
-                Session["id"] = 2;
+                Session["id"] = 4;
             }
             else
             {
@@ -45,6 +47,7 @@ namespace Smart_House_MVC.Controllers
                     dv.Add(id, new Light(name, "~/Content/offLight.png", "~/Content/off.png", 50));
                     break;
                 case "TV":
+                    dv.Add(id, new TV(name, "~/Content/tv.jpg", "~/Content/powerClick.jpg", 50));
                     break;
                 case "Fridge":
                     break;

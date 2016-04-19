@@ -55,6 +55,22 @@ namespace Smart_House_MVC.Controllers
             return Redirect("/Home/Index");
         }
 
+        public ActionResult Chanel(int i = 1, bool type = false)
+        {
+            IDictionary<int, Device> dv;
+            dv = (SortedDictionary<int, Device>)Session["dv"];
+
+            if (type)
+            {
+                ((iChanels)dv[i]).ChanelNext();
+            }
+            else
+            {
+                ((iChanels)dv[i]).ChanelBack();
+            }
+            return Redirect("/Home/Index");
+        }
+
         public ActionResult Delete(int i=0)
         {
             IDictionary<int, Device> dv;

@@ -37,7 +37,11 @@
                     {
                         <div> @Html.Partial("Light", Model[key])</div>
                     }
-                    
+                    else if (Model[key] is TV)
+                    {
+                        <div> @Html.Partial("TV", Model[key])</div>
+                    }
+
                 }
             </div>
         </div>

@@ -8,13 +8,15 @@ namespace Smart_House_MVC.Models.Classes
 {
     public class Fridge : Device, iVolume, iPower, iFreeze
     {
+        private DateTime rozmoroz;
         private Freeze moroz;
 
         public Fridge(string name, int volume)
             : base(name)
         {
             this.Volume = volume;
-            
+            start = DateTime.Now;
+            rozmoroz = DateTime.Now;
         }
 
         public void creatFreze()
@@ -58,6 +60,11 @@ namespace Smart_House_MVC.Models.Classes
         }
         public void VolumeMinus() 
         {
+        }
+
+        public double GetEnergy()
+        {
+            return ((DateTime.Now - start.Date).Hours) * 75;
         }
     }
 }

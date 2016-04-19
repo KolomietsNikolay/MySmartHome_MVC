@@ -2,7 +2,7 @@
     ViewBag.Title = "TV";
 }
 
-@model Smart_House_MVC.Models.Classes.Light
+@model Smart_House_MVC.Models.Classes.TV
 
 <style>
     .figure-div {
@@ -32,32 +32,46 @@
         open = "/Device/OnOff?i=" + ViewData["id"];
         delete = "/Device/Delete?i=" + ViewData["id"];
         plus = "/Device/Volume?i=" + ViewData["id"] + "&type=true";
-        minus = "/Device/Volume?i=" + ViewData["id"] + "&type=minus";
+        minus = "/Device/Volume?i=" + ViewData["id"] + "&type=false";
 
-        chanelplus = "/Device/Chanel?" +ViewData["id"] + "&type=true";
-        chanelminus = "/Device/Chanel?" + ViewData["id"] + "&type=minus";
+        chanelplus = "/Device/Chanel?i=" +ViewData["id"] + "&type=true";
+        chanelminus = "/Device/Chanel?i=" + ViewData["id"] + "&type=false";
         
     }
 }
 
 <div class="figure-div">
     <h3>Устройство:<span>@Model.Name</span></h3>
-    <img src='@Url.Content(@Model.UrlImage)' alt="Door" />
+    <div style="float: left">
+        <a href='@chanelminus' class="volume">
+            <h5>P-</h5>
+        </a>
+
+        <h5>@Model.ChanelName()</h5>
+
+        <a href='@chanelplus' class="volume">
+            <h5>P+</h5>
+        </a>
+    </div>
+    <div style="float:inherit">
+        <img src='@Url.Content(@Model.UrlImage)' alt="Door" />
+    </div>
+  
 
     <div style="float: right">
-        <a href='@minus'>
-            <h5>-</h5>
+        <a href='@minus' class="volume">
+            <h5>V-</h5>
         </a>
 
         <h5>@Model.Volume</h5>
 
-        <a href='@plus'>
-            <h5>+</h5>
+        <a href='@plus' class="volume">
+            <h5>V+</h5>
         </a>
     </div>
     <br />
     <a href='@open'>
-        <img src='@Url.Content(@Model.UrlButtonOnOff)' alt="On/Off" />
+        <img src='@Url.Content(@Model.UrlButon)' alt="On/Off" />
     </a>
 
     <hr />
@@ -65,5 +79,7 @@
     <a href='@delete'>
         <img src='@Url.Content("~/Content/del.png")' alt="Open/Close" />
     </a>
-
+    <a href='@Model.UrlTelekenal()' target="_blank">
+        <img src="~/Content/programa.png" alt="Телепрограмма"/>
+    </a>
 </div>

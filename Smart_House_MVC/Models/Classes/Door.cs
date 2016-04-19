@@ -17,6 +17,7 @@ namespace Smart_House_MVC.Models.Classes
             this.urlImage = url;
             this.urlButtonOpen = urlB;
             clouses = true;
+            ispol = 0;
         }
 
         public bool Clouses
@@ -62,6 +63,13 @@ namespace Smart_House_MVC.Models.Classes
                 urlImage = "~/Content/closeDoor.jpg";
                 clouses = true;
             }
+
+            ispol += 0.018;
+        }
+
+        public double GetElectro()
+        {
+            return ispol;
         }
     }
 }
