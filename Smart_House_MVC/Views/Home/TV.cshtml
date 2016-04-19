@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "TV";
+}
+
+@model Smart_House_MVC.Models.Classes.Light
+
+<style>
+    .figure-div {
+        border: 5px solid black;
+        float: left;
+        margin: 5px;
+        padding: 3px;
+        width: 260px;
+        height: 400px;
+        background-color: aliceblue;
+        border-color: aqua;
+        border-radius: 10px;
+    }
+</style>
+
+@{
+    string open = "/Device/OnOff";
+    string plus = "/Device/Volume?";
+    string minus = "/Device/Volume?";
+
+    string chanelplus = "/Device/Chanel?";
+    string chanelminus = "/Device/Chanel?";
+    
+    string delete = "/Device/Delete";
+    if (ViewData["id"] != null)
+    {
+        open = "/Device/OnOff?i=" + ViewData["id"];
+        delete = "/Device/Delete?i=" + ViewData["id"];
+        plus = "/Device/Volume?i=" + ViewData["id"] + "&type=true";
+        minus = "/Device/Volume?i=" + ViewData["id"] + "&type=minus";
+
+        chanelplus = "/Device/Chanel?" +ViewData["id"] + "&type=true";
+        chanelminus = "/Device/Chanel?" + ViewData["id"] + "&type=minus";
+        
+    }
+}
+
+<div class="figure-div">
+    <h3>Устройство:<span>@Model.Name</span></h3>
+    <img src='@Url.Content(@Model.UrlImage)' alt="Door" />
+
+    <div style="float: right">
+        <a href='@minus'>
+            <h5>-</h5>
+        </a>
+
+        <h5>@Model.Volume</h5>
+
+        <a href='@plus'>
+            <h5>+</h5>
+        </a>
+    </div>
+    <br />
+    <a href='@open'>
+        <img src='@Url.Content(@Model.UrlButtonOnOff)' alt="On/Off" />
+    </a>
+
+    <hr />
+
+    <a href='@delete'>
+        <img src='@Url.Content("~/Content/del.png")' alt="Open/Close" />
+    </a>
+
+</div>

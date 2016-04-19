@@ -1,0 +1,41 @@
+﻿@using Smart_House_MVC.Models.Classes;
+@model Smart_House_MVC.Models.Classes.Door
+ 
+<style>
+    .figure-div {
+            border: 5px solid black;
+            float: left;
+            margin: 5px;
+            padding: 3px;
+            width: 260px;
+            height: 400px;
+            background-color:aliceblue;
+            border-color:aqua;
+            border-radius:10px;
+           }
+</style>
+
+<div class="figure-div">
+    <h3>Устройство:<span>@Model.Name</span></h3>
+    <img src='@Url.Content(@Model.UrlImage)' alt="Door" />
+    @{
+        string open = "/Device/OpenClose";
+        string delete = "/Device/Delete";
+        if(ViewData["id"] != null)
+        {
+            open = "/Device/OpenClose?i=" + ViewData["id"];
+            delete = "/Device/Delete?i=" + ViewData["id"];
+        }
+    }
+    <br />
+    <a href='@open'>
+        <img src='@Url.Content(@Model.UrlButtonOpen)' alt="Open/Close" />
+    </a>
+
+    <hr />
+
+    <a href='@delete'>
+        <img src='@Url.Content("~/Content/del.png")' alt="Open/Close" />
+    </a>
+
+</div>

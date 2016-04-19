@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+@using Smart_House_MVC.Models.Classes;
+@using System.Collections.Generic;
+
+@model IDictionary<int, Smart_House_MVC.Models.Classes.Device>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Smart House</title>
+    <link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
+    
+</head>
+<body>
+    <div id="wrapper">
+        <h3 id="text">Smart House <br /> Interface web site</h3>
+        <div id="content">
+            <div id="nav">
+                <ul>
+                    <li><a href="/Home/AddDevice">Добавить устройство</a></li>
+                </ul>
+            </div>
+
+            <div id="main">
+                @foreach (int key in Model.Keys)
+                {
+                    ViewData["id"] = key;
+                    if (Model[key] is Door)
+                    {
+                        <div> @Html.Partial("Door", Model[key])</div>
+                    }
+                    else if (Model[key] is Light)
+                    {
+                        <div> @Html.Partial("Light", Model[key])</div>
+                    }
+                    
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

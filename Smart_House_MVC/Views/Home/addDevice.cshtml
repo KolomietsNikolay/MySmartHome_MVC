@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Добавление устройства</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Add", "Home"))
+        {
+            <p>Устройство:</p>
+            @Html.DropDownList("type", new SelectList(new string[] { "Door", "Light", "TV", "Fridge" }), "Выбирете устройство:")
+            <p>Название устройства:</p>
+            @Html.TextBox("name", "no name", new { id = "Text", size = "20", maxLength = "15" });
+
+            <input type="submit" value="Создать" />
+        }
+    </div>
+</body>
+</html>
