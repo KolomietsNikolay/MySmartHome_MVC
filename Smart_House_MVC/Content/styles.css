@@ -71,7 +71,7 @@ ul li{
     padding: inherit;
     list-style: none
 }
-ul li:hover:nth-child(1)
+ul li:hover:nth-child(n+1)
 {
     background-color: rgba(0,0,0,0.1)
 }
