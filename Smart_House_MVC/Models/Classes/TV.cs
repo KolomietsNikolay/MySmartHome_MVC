@@ -180,7 +180,7 @@ namespace Smart_House_MVC.Models.Classes
             {
                 urlImage = "~/Content/tv.jpg";
                 power = false;
-                ispol += ((DateTime.Now - start.Date).Hours * 75);
+                ispol += (DateTime.Now.TimeOfDay.TotalHours - start.TimeOfDay.TotalHours) * 213;
             }
             else
             {

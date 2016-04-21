@@ -6,32 +6,81 @@ using System.Web;
 
 namespace Smart_House_MVC.Models.Classes
 {
-    public class Fridge : Device, iVolume, iPower, iFreeze
+    public class Fridge : Device, iVolume, iPower
     {
         private DateTime rozmoroz;
-        private Freeze moroz;
+        private bool nujdaRozmoroz;
+        private string urlButtonOnOff;
+        private bool power;
+        private int volume;
+        private int levelFreeze;
+        private int moroz;
 
-        public Fridge(string name, int volume)
+       public Fridge(string name, string url, string urlB)
             : base(name)
         {
-            this.Volume = volume;
-            start = DateTime.Now;
+            this.urlImage = url;
+            this.urlButtonOnOff = urlB;
+            this.volume = 8;
+            this.moroz = -10;
+            this.levelFreeze = 2;
             rozmoroz = DateTime.Now;
+            ispol = 0;
         }
 
-        public void creatFreze()
+
+        public bool Power 
         {
-            if(moroz == null)
-            moroz = new Freeze(Name, -12); 
+            set
+            {
+                power = value;
+            }
+            get
+            {
+                return power;
+            }
         }
 
-        public bool Power { set; get; }
-        private int volume;
+        public bool NujdaRozmoroz
+        {
+            set
+            {
+                nujdaRozmoroz = value;
+            }
+            get
+            {
+                return nujdaRozmoroz;
+            }
+        }
+
+        public string UrlImage
+        {
+            get
+            {
+                return urlImage;
+            }
+            set
+            {
+                urlImage = value;
+            }
+        }
+        public string UrlButtonOnOff
+        {
+            get
+            {
+                return urlButtonOnOff;
+            }
+            set
+            {
+                urlButtonOnOff = value;
+            }
+        }
+
         public int Volume
         {
             set
             {
-                if (value >= 3 && value <= 10)
+                if (value >= 4 && value <= 16)
                     volume = value;
             }
             get
@@ -39,32 +88,109 @@ namespace Smart_House_MVC.Models.Classes
                 return this.volume;
             }
         }
+        
         public int Moroz
         {
+            private set
+            {
+                moroz = value;
+            }
             get
             {
-                return moroz.Volume;
-            }
-            set
-            {
-                moroz.Volume = value;
+                return moroz;
             }
         }
+
+        
 
         public void OnOff()
         {
+            if (power)
+            {
+                urlImage = "~/Content/fridgeOff.jpg";
+                urlButtonOnOff = "~/Content/offFridge.png";
+                power = false;
+                ispol += (DateTime.Now.TimeOfDay.TotalHours - start.TimeOfDay.TotalHours) * (170 + levelFreeze * 10);
+            }
+            else
+            {
+                urlImage = "~/Content/fridge1.jpg";
+                urlButtonOnOff = "~/Content/onFridge.png";
+                power = true;
+                start = DateTime.Now;
+                if (DateTime.Now.Day == 1 && start.Date.Day != 1) ispol = 0;
+            }
+            Proverka();
         }
 
-        public void VolumePlus() 
+        private void Proverka()
         {
+           if(DateTime.Now.Date >= rozmoroz.Date)
+           {
+               nujdaRozmoroz = true;
+           }
+           else
+           {
+               nujdaRozmoroz = false;
+           }
+        }
+
+        public void LevelChanch(int lev) 
+        {
+            ispol += (DateTime.Now.TimeOfDay.TotalHours - start.TimeOfDay.TotalHours) * (170 + levelFreeze * 10);
+            start = DateTime.Now;
+            switch(lev)
+            {
+                case 1:
+                    Volume = 4;
+                    moroz = -4;
+                    levelFreeze = lev;
+                    break;
+                case 2:
+                    Volume = 8;
+                    moroz = -10;
+                    levelFreeze = lev;
+                    break;
+                case 3:
+                    Volume = 12;
+                    moroz = -16;
+                    levelFreeze = lev;
+                    break;
+                case 4:
+                    Volume = 16;
+                    moroz = -22;
+                    levelFreeze = lev;
+                    break;
+                default:
+                    Volume = 8;
+                    moroz = -10;
+                    levelFreeze = 2;
+                    break;
+            }
+            Proverka();
         }
         public void VolumeMinus() 
         {
         }
-
-        public double GetEnergy()
+        public void VolumePlus()
         {
-            return ((DateTime.Now - start.Date).Hours) * 75;
+
+        }
+
+        public int LevelGet()
+        {
+            return levelFreeze;
+        }
+
+        public string Rozmorozka()
+        {
+            return rozmoroz.Date.ToString();
+        }
+
+        public void Razmorozil()
+        {
+            nujdaRozmoroz = false;
+            rozmoroz = DateTime.Now.AddDays(30);
         }
     }
 }

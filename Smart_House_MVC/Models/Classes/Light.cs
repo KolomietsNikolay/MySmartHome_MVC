@@ -11,6 +11,7 @@ namespace Smart_House_MVC.Models.Classes
         private int volume;
         private bool power;
         private string urlButtonOnOff;
+        private DateTime start;
 
         public Light(string name, string url, string urlB, int volume)
             : base(name)
@@ -18,6 +19,7 @@ namespace Smart_House_MVC.Models.Classes
             this.urlImage = url;
             this.urlButtonOnOff = urlB;
             this.volume = volume;
+            ispol = 0;
         }
 
         public string UrlImage
@@ -71,26 +73,39 @@ namespace Smart_House_MVC.Models.Classes
 
         public void VolumePlus()
         {
+            if (power && volume <= 100)
+            {
+                ispol += (DateTime.Now.TimeOfDay.TotalHours - start.TimeOfDay.TotalHours) * volume;
+                start = DateTime.Now;
+            }
             Volume += 10;
             Refresh();
         }
 
         public void VolumeMinus()
         {
+            if (power)
+            {
+                ispol += (DateTime.Now.TimeOfDay.TotalHours - start.TimeOfDay.TotalHours) * volume;
+                start = DateTime.Now;
+            }
             Volume -= 10;
             Refresh();
         }
 
         public void OnOff()
         {
-            if(power)
+            if (power)
             {
                 urlButtonOnOff = "~/Content/off.png";
                 urlImage = "~/Content/offLight.png";
+                ispol += (DateTime.Now.Date.TimeOfDay.TotalHours - start.Date.TimeOfDay.TotalHours) * volume;
                 power = false;
             }
-            else if(volume > 0)
+            else if (volume > 0)
             {
+                start = DateTime.Now;
+                if (DateTime.Now.Day == 1 && start.Date.Day != 1) ispol = 0;
                 power = true;
                 UrlButtonOnOff = "~/Content/on.jpg";
                 Refresh();

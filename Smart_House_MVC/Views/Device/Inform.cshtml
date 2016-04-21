@@ -1,0 +1,27 @@
+﻿@model Smart_House_MVC.Models.Classes.Fridge
+
+@{
+    Layout = null;
+    string url = "/Device/Rozmorozil?i=" + ViewData["razm"]; 
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Inform</title>
+    <link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div>
+        <h4>Название устройства:@Model.Name</h4>
+        <h5>Температура в холодильнике:@Model.Volume</h5>
+        <h5>Температура в морозильной камере:@Model.Moroz</h5>
+        <h5>Дата разморозки: @Model.Rozmorozka()</h5>
+        <a href='@url' class="volume">Разморозить</a>
+
+    </div>
+</body>
+</html>

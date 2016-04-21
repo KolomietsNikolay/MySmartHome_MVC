@@ -42,6 +42,10 @@
                     {
                         <div> @Html.Partial("TV", Model[key])</div>
                     }
+                    else if (Model[key] is Fridge)
+                    {
+                        <div> @Html.Partial("Fridge", Model[key])</div>
+                    }
 
                 }
             </div>

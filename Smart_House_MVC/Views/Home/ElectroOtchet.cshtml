@@ -1,0 +1,27 @@
+﻿@model System.Collections.Generic.List<double>
+
+@{
+    Layout = null;
+    System.Collections.Generic.IDictionary<int, Smart_House_MVC.Models.Classes.Device> dv = (SortedDictionary<int, Smart_House_MVC.Models.Classes.Device>)Session["dv"];
+    int i = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Отчет электропитания</title>
+</head>
+<body>
+    <div>
+        @foreach (int key in dv.Keys)
+        {
+            <p>Прибор: @dv[key].Name Потребил: @Model[i++].ToString() Ватт*час</p>
+            <hr/>
+        }
+
+        <p>В сумме: @ViewBag.SumaPitania Ватт*час</p>
+    </div>
+</body>
+</html>

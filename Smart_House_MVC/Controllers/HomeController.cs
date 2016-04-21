@@ -21,9 +21,10 @@ namespace Smart_House_MVC.Controllers
                 dv.Add(1, new Door("Входная дверь.", "~/Content/closeDoor.jpg", "~/Content/close.png"));
                 dv.Add(2, new Light("Свет коридор.", "~/Content/offLight.png", "~/Content/off.png",50));
                 dv.Add(3, new TV("Тел. спальня.", "~/Content/tv.jpg", "~/Content/powerClick.jpg", 50));
+                dv.Add(4, new Fridge("Холодильник", "~/Content/fridgeOff.jpg", "~/Content/offFridge.png"));
 
                 Session["dv"] = dv;
-                Session["id"] = 4;
+                Session["id"] = 5;
             }
             else
             {
@@ -50,6 +51,7 @@ namespace Smart_House_MVC.Controllers
                     dv.Add(id, new TV(name, "~/Content/tv.jpg", "~/Content/powerClick.jpg", 50));
                     break;
                 case "Fridge":
+                    dv.Add(id, new Fridge(name, "~/Content/fridge1.jpg", "~/Content/offFridge.png"));
                     break;
             }
 

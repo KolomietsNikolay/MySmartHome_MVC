@@ -71,6 +71,36 @@ namespace Smart_House_MVC.Controllers
             return Redirect("/Home/Index");
         }
 
+        public ActionResult Level(int i=1,int lev=2)
+        {
+            IDictionary<int, Device> dv;
+            dv = (SortedDictionary<int, Device>)Session["dv"];
+
+            ((Fridge)dv[i]).LevelChanch(lev);
+
+            return Redirect("/Home/Index");
+        }
+
+        public ActionResult Inform(int i=1)
+        {
+            IDictionary<int, Device> dv;
+            dv = (SortedDictionary<int, Device>)Session["dv"];
+
+            ViewData["razm"] = i;
+
+            return View(dv[i]);
+        }
+
+        public ActionResult Rozmorozil(int i = 1)
+        {
+            IDictionary<int, Device> dv;
+            dv = (SortedDictionary<int, Device>)Session["dv"];
+
+            ((Fridge)dv[i]).Razmorozil();
+
+            return Redirect("/Home/Index");
+        }
+
         public ActionResult Delete(int i=0)
         {
             IDictionary<int, Device> dv;

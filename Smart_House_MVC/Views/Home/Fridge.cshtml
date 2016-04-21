@@ -1,0 +1,98 @@
+﻿@model Smart_House_MVC.Models.Classes.Fridge
+
+@{
+    Layout = null;
+}
+
+<style>
+    .figure-div {
+        border: 5px solid black;
+        float: left;
+        margin: 5px;
+        padding: 3px;
+        width: 260px;
+        height: 400px;
+        background-color: aliceblue;
+        border-color: aqua;
+        border-radius: 10px;
+    }
+</style>
+
+@{
+    string open = "/Device/OnOff";
+    string level1 = "/Device/Volume?";
+    string level2 = "/Device/Volume?";
+    string level3 = "/Device/Volume?";
+    string level4 = "/Device/Volume?";
+    
+    
+    string delete = "/Device/Delete";
+    string inf = "/Device/Inform";
+    
+    if (ViewData["id"] != null)
+    {
+        open = "/Device/OnOff?i=" + ViewData["id"];
+        delete = "/Device/Delete?i=" + ViewData["id"];
+
+        inf = "/Device/Inform?i=" + ViewData["id"];
+        
+        level1 = "/Device/Level?i=" + ViewData["id"] + "&lev=1";
+        level2 = "/Device/Level?i=" + ViewData["id"] + "&lev=2";
+        level3 = "/Device/Level?i=" + ViewData["id"] + "&lev=3";
+        level4 = "/Device/Level?i=" + ViewData["id"] + "&lev=4";
+    }
+}
+
+<div class="figure-div">
+    <h3>Устройство:<span>@Model.Name</span></h3>
+
+    <div style="float:left">
+        <img src='@Url.Content(@Model.UrlImage)' alt="Fridge" />
+    </div>
+
+
+    <div>
+        <a href='@level1' class="volume">
+            <h5>1</h5>
+        </a>
+
+        <a href='@level2' class="volume">
+            <h5>2</h5>
+        </a>
+        <br />
+        <a href='@level3' class="volume">
+            <h5>3</h5>
+        </a>
+
+        <a href='@level4' class="volume">
+            <h5>4</h5>
+        </a>
+    </div>
+
+    @if (@Model.Power)
+    {
+        <p>Уровень:@Model.LevelGet()</p>
+    }
+    <br />
+    <a href='@open'>
+        <img src='@Url.Content(@Model.UrlButtonOnOff)' alt="On/Off" />
+    </a>
+
+    <hr />
+
+    <a href='@delete'>
+        <img src='@Url.Content("~/Content/del.png")' alt="Open/Close" />
+    </a>
+    @if (@Model.NujdaRozmoroz) 
+    { 
+    <a href='@inf'>
+        <img src='@Url.Content("~/Content/inform1.png")' alt="Open/Close" />
+    </a>
+    }
+    else
+    {
+        <a href='@inf'>
+            <img src='@Url.Content("~/Content/inform.png")' alt="Open/Close" />
+        </a>
+    }
+</div>
